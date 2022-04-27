@@ -31,6 +31,27 @@ pub fn returns_summarizable() -> impl Summary {
     }
 }
 
+fn returns_summarizable_v2(switch: bool) -> Box<dyn Summary> {
+    if switch {
+        Box::new(NewsArticle {
+            headline: String::from("Penguins win the Stanley Cup Championship!"),
+            location: String::from("Pittsburgh, PA, USA"),
+            author: String::from("Iceburgh"),
+            content: String::from(
+                "The Pittsburgh Penguins once again are the best \
+                 hockey team in the NHL.",
+            ),
+        })
+    } else {
+        Box::new(Tweet {
+            username: String::from("horse_ebooks"),
+            content: String::from("of course, as you probably already knowm, people"),
+            reply: false,
+            retweet: false,
+        })
+    }
+}
+
 fn main() {
     let tweet = Tweet {
         username: String::from("horse_ebooks"),
@@ -60,4 +81,13 @@ fn main() {
     println!("Function returns {}", some_function(&article, &dm));
 
     println!("This returns {}", returns_summarizable().summarize());
+
+    println!(
+        "Trait return 1: {}",
+        returns_summarizable_v2(true).summarize()
+    );
+    println!(
+        "Trait return 2: {}",
+        returns_summarizable_v2(false).summarize()
+    );
 }
