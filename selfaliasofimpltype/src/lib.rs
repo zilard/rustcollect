@@ -28,12 +28,19 @@ pub struct Rectangle {
 
 // All functions defined within an impl block are called associated functions 
 // because they’re associated with the type named after the impl.
+
+// Each struct is alllowed to have multiple impl blocks
+
 impl Rectangle {
 
     pub fn area(&self) -> u32 {
         self.width * self.height
     }
 
+}
+
+
+impl Rectangle {
 
     pub fn width(&self) -> bool {
         self.width > 0
