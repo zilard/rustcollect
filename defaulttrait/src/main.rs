@@ -1,5 +1,5 @@
 
-use genericstrait::{Summary, NewsArticle, Tweet};
+use defaulttrait::{Summary, NewsArticle, Tweet};
 
 fn main() {
     let tweet = Tweet {
