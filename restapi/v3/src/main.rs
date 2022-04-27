@@ -2,10 +2,10 @@ extern crate restson;
 #[macro_use]
 extern crate serde_derive;
 
-use restson::{RestClient,RestPath,Error};
+use restson::{Error, RestClient, RestPath};
 
 // Data structure that matches with REST API JSON
-#[derive(Serialize,Deserialize,Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 struct HttpBinAnything {
     method: String,
     url: String,
@@ -13,7 +13,9 @@ struct HttpBinAnything {
 
 // Path of the REST endpoint: e.g. http://<baseurl>/anything
 impl RestPath<()> for HttpBinAnything {
-    fn get_path(_: ()) -> Result<String,Error> { Ok(String::from("anything")) }
+    fn get_path(_: ()) -> Result<String, Error> {
+        Ok(String::from("anything"))
+    }
 }
 
 #[tokio::main]
@@ -25,4 +27,3 @@ async fn main() {
     let data: HttpBinAnything = client.get(()).await.unwrap();
     println!("{:?}", data);
 }
-

@@ -1,13 +1,11 @@
 mod lib;
 
-use lib::{Summary, NewsArticle, NewsFeed, Tweet};
+use lib::{NewsArticle, NewsFeed, Summary, Tweet};
 
 fn main() {
     let tweet = Tweet {
         username: String::from("horse_ebooks"),
-        content: String::from(
-            "of course, as you probably already know, people",
-        ),
+        content: String::from("of course, as you probably already know, people"),
         reply: false,
         retweet: false,
     };
@@ -26,8 +24,6 @@ fn main() {
 
     println!("New article available! {}", article.summarize());
 
-
     let feed = NewsFeed {};
     println!("News feed available! {}", feed.summarize());
-
 }

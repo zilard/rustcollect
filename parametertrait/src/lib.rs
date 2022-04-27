@@ -1,6 +1,3 @@
-
-
-
 // Default Implementation
 /*
 pub trait Summary {
@@ -10,9 +7,7 @@ pub trait Summary {
 }
 */
 
-
 pub trait Summary {
-
     fn summarize_author(&self) -> String {
         format!("(Read more...)")
     }
@@ -20,9 +15,7 @@ pub trait Summary {
     fn summarize(&self) -> String {
         format!("(Read more from {}...)", self.summarize_author())
     }
-
 }
-
 
 pub struct Tweet {
     pub username: String,
@@ -31,16 +24,11 @@ pub struct Tweet {
     pub retweet: bool,
 }
 
-
 impl Summary for Tweet {
     fn summarize_author(&self) -> String {
         format!("@{}", self.username)
     }
 }
-
-
-
-
 
 pub struct NewsArticle {
     pub headline: String,
@@ -49,8 +37,4 @@ pub struct NewsArticle {
     pub content: String,
 }
 
-
-impl Summary for NewsArticle {
-}
-
-
+impl Summary for NewsArticle {}

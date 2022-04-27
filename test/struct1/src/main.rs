@@ -1,6 +1,5 @@
 #[derive(Debug)]
 
-
 struct User {
     username: String,
     email: String,
@@ -8,9 +7,7 @@ struct User {
     active: bool,
 }
 
-
 fn main() {
-
     let mut user1 = User {
         email: String::from("someone@example.com"),
         username: String::from("someusername123"),
@@ -25,7 +22,4 @@ fn main() {
     println!("V2=> {:#?}", user1);
 
     //println!("STRUCT: {}", user1);
-
 }
-
-

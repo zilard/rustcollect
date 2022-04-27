@@ -25,13 +25,8 @@ fn compare(n: i32, m: i32) -> Ordering {
     }
 }
 
-
 fn main() {
-
     let r: Ordering = compare(1, 2);
 
     println!("compare: {:?}", r);
-
 }
-
-

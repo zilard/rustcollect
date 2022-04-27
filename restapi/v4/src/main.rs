@@ -29,13 +29,13 @@ struct ReverseDependencies {
 impl ReverseDependencies {
     fn of(crate_id: &str) -> Result<Self> {
         Ok(ReverseDependencies {
-               crate_id: crate_id.to_owned(),
-               dependencies: vec![].into_iter(),
-               client: reqwest::blocking::Client::new(),
-               page: 0,
-               per_page: 100,
-               total: 0,
-           })
+            crate_id: crate_id.to_owned(),
+            dependencies: vec![].into_iter(),
+            client: reqwest::blocking::Client::new(),
+            page: 0,
+            per_page: 100,
+            total: 0,
+        })
     }
 
     fn try_next(&mut self) -> Result<Option<Dependency>> {
@@ -48,10 +48,10 @@ impl ReverseDependencies {
         }
 
         self.page += 1;
-        let url = format!("https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&per_page={}",
-                          self.crate_id,
-                          self.page,
-                          self.per_page);
+        let url = format!(
+            "https://crates.io/api/v1/crates/{}/reverse_dependencies?page={}&per_page={}",
+            self.crate_id, self.page, self.per_page
+        );
 
         let response = self.client.get(&url).send()?.json::<ApiResponse>()?;
         self.dependencies = response.dependencies.into_iter();

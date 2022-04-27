@@ -1,7 +1,4 @@
-
-
 pub fn bubble_sort<T: Ord>(arr: &mut [T]) {
-
     for i in 0..arr.len() {
         for j in 0..arr.len() - 1 - i {
             if arr[j] > arr[j + 1] {
@@ -9,11 +6,7 @@ pub fn bubble_sort<T: Ord>(arr: &mut [T]) {
             }
         }
     }
-
 }
-
-
-
 
 /*
 
@@ -32,8 +25,6 @@ i:3 j:0
 
 */
 
-
-
 #[cfg(test)]
 mod tests {
 
@@ -51,7 +42,6 @@ mod tests {
         for i in 0..vec1.len() {
             println!("i: {}", i);
         }
-       
     }
 
     #[test]
@@ -66,12 +56,5 @@ mod tests {
         for i in 0..vec2.len() {
             println!("i: {}", i);
         }
-
     }
-
 }
-
-
-
-
-

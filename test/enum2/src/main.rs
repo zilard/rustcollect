@@ -1,5 +1,3 @@
-
-
 enum Continent {
     Europe,
     Asia,
@@ -7,7 +5,6 @@ enum Continent {
     America,
     Oceania,
 }
-
 
 fn check(contin: Continent) {
     match contin {
@@ -18,11 +15,8 @@ fn check(contin: Continent) {
         Continent::Oceania => print!("_____OCEANIA\n\n"),
     }
 }
- 
-
 
 fn main() {
-
     let mut contin: Continent;
 
     contin = Continent::Asia;
@@ -30,6 +24,4 @@ fn main() {
 
     contin = Continent::Europe;
     check(contin);
-
 }
-

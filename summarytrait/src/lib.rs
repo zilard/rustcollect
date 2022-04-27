@@ -1,5 +1,3 @@
-
-
 pub trait Summary {
     fn summarize(&self) -> String {
         String::from("(Read more...)")
@@ -32,9 +30,6 @@ impl Summary for Tweet {
     }
 }
 
-
 pub struct NewsFeed {}
 
 impl Summary for NewsFeed {}
-
-

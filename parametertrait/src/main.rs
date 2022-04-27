@@ -1,24 +1,18 @@
-
-use parametertrait::{Summary, NewsArticle, Tweet};
+use parametertrait::{NewsArticle, Summary, Tweet};
 
 pub fn notify(item: &impl Summary) {
     println!("Breaking news! {}", item.summarize());
 }
 
-
 fn main() {
     let tweet = Tweet {
         username: String::from("horse_ebooks"),
-        content: String::from(
-            "of course, as you probably already know, people",
-        ),
+        content: String::from("of course, as you probably already know, people"),
         reply: false,
         retweet: false,
     };
 
     println!("1 new tweet: {}", tweet.summarize());
-
-
 
     let article = NewsArticle {
         headline: String::from("Penguins win the Stanley Cup Championship!"),
@@ -32,9 +26,5 @@ fn main() {
 
     println!("New article available! {}", article.summarize());
 
-
     notify(&tweet);
-
 }
-
-

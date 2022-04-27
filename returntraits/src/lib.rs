@@ -1,21 +1,10 @@
+pub trait Display {}
 
-pub trait Display {
+pub trait Debug {}
 
-}
-
-pub trait Debug {
-
-}
-
-
-pub trait Clone {
-
-}
-
-
+pub trait Clone {}
 
 pub trait Summary {
-
     fn summarize_author(&self) -> String {
         format!("(Read more...)")
     }
@@ -23,12 +12,7 @@ pub trait Summary {
     fn summarize(&self) -> String {
         format!("(Read more from {}...)", self.summarize_author())
     }
-
 }
-
-
-
-
 
 pub struct Tweet {
     pub username: String,
@@ -37,19 +21,13 @@ pub struct Tweet {
     pub retweet: bool,
 }
 
-
 impl Summary for Tweet {
     fn summarize_author(&self) -> String {
         format!("@{}", self.username)
     }
 }
 
-impl Display for Tweet {
-
-}
-
-
-
+impl Display for Tweet {}
 
 pub struct NewsArticle {
     pub headline: String,
@@ -58,34 +36,14 @@ pub struct NewsArticle {
     pub content: String,
 }
 
+impl Summary for NewsArticle {}
 
-impl Summary for NewsArticle {
-}
+impl Display for NewsArticle {}
 
-impl Display for NewsArticle {
+impl Clone for NewsArticle {}
 
-}
+pub struct Dm {}
 
-impl Clone for NewsArticle {
+impl Clone for Dm {}
 
-}
-
-
-
-
-
-pub struct Dm {
-
-}
-
-impl Clone for Dm {
-
-}
-
-impl Debug for Dm {
-
-}
-
-
-
-
+impl Debug for Dm {}

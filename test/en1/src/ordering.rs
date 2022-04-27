@@ -5,5 +5,3 @@ pub enum Ordering {
     Equal,
     Greater,
 }
-
-

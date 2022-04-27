@@ -11,6 +11,4 @@ mod tests {
         let result = 9 + 3;
         assert_eq!(result, 12);
     }
-
-
 }

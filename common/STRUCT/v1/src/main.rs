@@ -1,4 +1,3 @@
-
 #[derive(Debug)]
 struct User {
     username: String,
@@ -7,10 +6,7 @@ struct User {
     active: bool,
 }
 
-
 fn main() {
-
-
     /*
     let mut user1 = User {
         email: String::from("someone@example.com"),
@@ -25,26 +21,19 @@ fn main() {
 
     */
 
-    let mut user1 = build_user(String::from("someone@example.com"),
-                               String::from("someusername123"));
-
+    let mut user1 = build_user(
+        String::from("someone@example.com"),
+        String::from("someusername123"),
+    );
 
     println!("\nuser1: {:?}\n", user1);
-
-
 }
 
-
-
 fn build_user(email: String, username: String) -> User {
-
     User {
         email: email,
         username: username,
         active: true,
         sign_in_count: 1,
     }
-
 }
-
-

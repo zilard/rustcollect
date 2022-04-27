@@ -1,9 +1,7 @@
-use serde::Deserialize;
 use reqwest::Error;
+use serde::Deserialize;
 
 use std::collections::HashMap;
-
-
 
 #[derive(Deserialize, Debug)]
 struct Data {
@@ -23,9 +21,10 @@ struct a {
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
-    let request_url = format!("https://api.kraken.com/0/public/Ticker?pair={pair}",
-                              pair = "xbtusd");
-
+    let request_url = format!(
+        "https://api.kraken.com/0/public/Ticker?pair={pair}",
+        pair = "xbtusd"
+    );
 
     println!("{}", request_url);
     let response = reqwest::get(&request_url).await?;
@@ -36,11 +35,9 @@ async fn main() -> Result<(), Error> {
     let result: HashMap<String, Data> = response.json().await?;
 
     println!("{:?}", result);
-  
 
     Ok(())
 }
-
 
 /*
 fn main() {

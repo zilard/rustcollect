@@ -1,9 +1,6 @@
-
 #[derive(Debug)]
 
-
 fn main() {
-
     let thing1: i32 = 100;
     let thing2 = 200 + thing1;
 
@@ -12,21 +9,14 @@ fn main() {
 
     let (part1, part2) = ("first", "second");
 
-
     struct Example {
         a: bool,
         b: u64,
     }
 
-    let Example { a, b: _ } = Example {
-        a: true,
-        b: 10004,
-    };
+    let Example { a, b: _ } = Example { a: true, b: 10004 };
 
     assert!(a);
 
     println!("{:#?}", a);
-
 }
-
-
