@@ -45,3 +45,20 @@ fn main() {
         all_chars_uniq_v2(&String::from("helloworld"))
     );
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_1() {
+        assert_eq!(all_chars_uniq_v1(&String::from("abcdefg")), true);
+        assert_eq!(all_chars_uniq_v1(&String::from("abcdefga")), false);
+    }
+
+    #[test]
+    fn test_2() {
+        assert_eq!(all_chars_uniq_v2(&String::from("abcdefg")), true);
+        assert_eq!(all_chars_uniq_v2(&String::from("abcdefga")), false);
+    }
+}
