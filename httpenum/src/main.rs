@@ -4,7 +4,7 @@ use std::cmp::Ordering;
 
 
 
-
+#[derive(Debug)]
 enum HttpStatus {
     Ok = 200,
     NotModified = 304,
@@ -12,10 +12,23 @@ enum HttpStatus {
 }
 
 
+fn http_status_from_u32(n: u32) -> Option<HttpStatus> {
+    match n {
+        200 => Some(HttpStatus::Ok),
+        304 => Some(HttpStatus::NotModified),
+        404 => Some(HttpStatus::NotFound),
+        _ => None,
+    }
+}
+
+
 fn main() {
 
-    println!("");
-   
+    println!("200 is {:?}", http_status_from_u32(200));
+
+    println!("566 is {:?}", http_status_from_u32(566));
+
+
 }
 
 
