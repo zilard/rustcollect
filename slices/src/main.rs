@@ -4,6 +4,8 @@ fn first_word(s: &String) -> &str {
     // as_bytes() - Returns a byte slice of this String’s contents.
     // the inverse of this method is from_utf8()
 
+
+    /*
     let bytes = s.as_bytes();
 
     println!("string converted in bytes: {:?}", bytes);    
@@ -12,8 +14,18 @@ fn first_word(s: &String) -> &str {
         println!("byte items of byte converted string: {}", item);
     }
  
+    "test"   // <--- return "test" as mockup return value
+    */
 
-    "test"
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i]
+        }
+    }
+
+    &s[..]
 
 }
 
@@ -25,7 +37,7 @@ fn main() {
 
     let word = first_word(&s);   // <-- immutable borrow occurs here
 
-     println!("word: {}", word);
+    println!("word: {}", word);
 
 
     // clear() - truncates this String, removing all contents, the String will have a length
