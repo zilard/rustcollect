@@ -56,7 +56,7 @@ impl<T> Graph<T> {
         if parent_vertices.is_empty() {
             self.head = Some(ret.clone());
         } else {
-            for parent in parent_vertics {
+            for parent in parent_vertices {
                 parent.borrow_mut().edges.push(ret.clone());
             }
         }
@@ -79,7 +79,7 @@ impl<T> Graph<T> {
 
 
     fn dfs<F>(&self, mut f: F)
-    where:
+    where
         F: FnMut(&VertexRef<T>) -> bool,
     {
         if let Some(head) = &self.head {
@@ -92,13 +92,14 @@ impl<T> Graph<T> {
         let mut found_path = false;
         self.dfs_from(
             &mut |v| {
-                if Rc::ptr_eq(v, &to {
+                if Rc::ptr_eq(v, &to) {
                     // a path has been found
                     found_path = true;
                     false
                 } else {
                     true
-                },  
+                }
+            },  
             from, 
         );
         found_path
@@ -110,45 +111,62 @@ impl<T> Graph<T> {
 
 
 impl<T: Display> Display for Graph<T> {
-    fn fmt(&self, w: &mut std::fmt::Formatter) -> std::results:Results<(), std::fmt::Error> {
+
+    fn fmt(&self, w: &mut std::fmt::Formatter) -> std::result::Result<(), std::fmt::Error> {
+
         write!(w, "[")?;
 
         self.dfs(|v| {
-            write!(w, "{}, ", v.borrow().data.unwrap();
+            write!(w, "{}, ", v.borrow().data).unwrap();
             true
         });
+
         write!(w, "]")
+
     }
+
 }
-
-
 
 
 
 #[cfg(test)]
 mod tests {
+
     use super::*;
 
     #[test]
     fn test_route_between_nodes() {
-        let mut graph = Graph::<i32>::new();
 
-        let first = graph.add_vertex(1, &[]);
-        let second = graph.add_vertex(2, &[first.clone()]);
-        let third = graph.add_vertex(3, &[first.clone(), second]);
+        let mut graph = Graph::<String>::new();
+
+        let first = graph.add_vertex(String::from("SFO"), &[]);
+        let second = graph.add_vertex(String::from("ATL"), &[first.clone()]);
+        let third = graph.add_vertex(String::from("EWR"), &[second.clone()]);
 
         assert_eq!(graph.has_path(first.clone(), third.clone()), true);
         assert_eq!(graph.has_path(third, first), false);
+
     }
+
 }
+
+
 
 
 fn main() {
-    let mut graph = Graph::<i32>::new();
-    let first = graph.add_vertex(1, &[]);
-    let second = graph.add_vertex(2, &[]);
-    graph.has_path(first, second);
-}
 
+    let mut graph = Graph::<String>::new();
+
+    let first = graph.add_vertex(String::from("SFO"), &[]);
+    let second = graph.add_vertex(String::from("ATL"), &[first.clone()]);
+    let third = graph.add_vertex(String::from("EWR"), &[second.clone()]);
+
+    println!("has path? 'SFO' -> 'EWR': {}", graph.has_path(first.clone(), third.clone()));
+    println!("has path? 'EWR' -> 'SFO': {}", graph.has_path(third, first));
+
+
+    println!("graph {}", graph);
+
+}
 
 
