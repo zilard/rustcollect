@@ -1,0 +1,11 @@
+[package]
+name = "actor1"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix = "0.7.9"
+futures = "0.1.25"
+tokio = "0.1.15"
