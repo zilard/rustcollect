@@ -1,6 +1,6 @@
 use tokio::{
     net::TcpListener, 
-    io::{AsyncReadExt, AsyncWriteExt, BufReader, AsyncBufReadExt}
+    io::{AsyncWriteExt, BufReader, AsyncBufReadExt}
 };
 
 #[tokio::main]
@@ -20,6 +20,9 @@ async fn main() {
 
     loop {
         let bytes_read = reader.read_line(&mut line).await.unwrap();
+        if bytes_read == 0 {
+            break;
+        }
 
         writer.write_all(line.as_bytes()).await.unwrap();
     }    
