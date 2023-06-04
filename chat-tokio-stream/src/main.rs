@@ -10,12 +10,12 @@ async fn main() {
     let listener = TcpListener::bind("localhost:8080").await.unwrap();
 
     // with String turbofish we are telling the compiler that hey we're going to send Strings on this channel
-    let (tx, _rx) = broadcast::channel::<String>(10);
+    let (tx, _rx) = broadcast::channel(10);
 
     // so we have a tcp listener and we are ready to start awaiting for connections
     // put everything into an infinite loop
     loop {
-        let (mut socket, _addr) = listener.accept().await.unwrap();
+        let (mut socket, addr) = listener.accept().await.unwrap();
 
         // to avoid faimous use of moved value error, we are going to clone tx
         let tx = tx.clone();
@@ -52,13 +52,15 @@ async fn main() {
                             break;
                         }
 
-                        tx.send(line.clone()).unwrap();
+                        tx.send((line.clone(), addr)).unwrap();
                         line.clear();
                     }
                     result = rx.recv() => {
-                        let msg = result.unwrap();
+                        let (msg, other_addr) = result.unwrap();
 
-                        writer.write_all(msg.as_bytes()).await.unwrap();
+                        if addr != other_addr {
+                            writer.write_all(msg.as_bytes()).await.unwrap();
+                        }
                     }
                 }
             }  
