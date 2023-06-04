@@ -1,6 +1,6 @@
 use tokio::{
     net::TcpListener, 
-    io::{AsyncWriteExt, BufReader, AsyncBufReadExt}
+    io::{AsyncWriteExt, BufReader, AsyncBufReadExt}, sync::broadcast
 };
 
 #[tokio::main]
@@ -9,10 +9,20 @@ async fn main() {
     // listening on incoming requests
     let listener = TcpListener::bind("localhost:8080").await.unwrap();
 
+    // with String turbofish we are telling the compiler that hey we're going to send Strings on this channel
+    let (tx, _rx) = broadcast::channel::<String>(10);
+
     // so we have a tcp listener and we are ready to start awaiting for connections
     // put everything into an infinite loop
     loop {
         let (mut socket, _addr) = listener.accept().await.unwrap();
+
+        // to avoid faimous use of moved value error, we are going to clone tx
+        let tx = tx.clone();
+
+        // this is how it's designed by tokio folks, the way you would get a receiver on a broadcast channel
+        // is actually by pulling it out from the sender tx.subscriber() will give us a new receiver
+        let mut rx = tx.subscribe();
 
         // if we want to handle multiple clients independently
         // tokio spawn moves all of one client handling under its own independent task
@@ -31,7 +41,12 @@ async fn main() {
                     break;
                 }
 
-                writer.write_all(line.as_bytes()).await.unwrap();
+                tx.send(line.clone()).unwrap();
+                // we are sending items on the channel but we are not receiving anything yet on the channel
+
+                let msg = rx.recv().await.unwrap();  //msg is going to come back as a string
+
+                writer.write_all(msg.as_bytes()).await.unwrap();
                 line.clear();
             }  
         });    
