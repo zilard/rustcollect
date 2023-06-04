@@ -51,16 +51,16 @@ async fn main() {
                         if result.unwrap() == 0 {
                             break;
                         }
-                        
+
                         tx.send(line.clone()).unwrap();
                         line.clear();
                     }
+                    result = rx.recv() => {
+                        let msg = result.unwrap();
+
+                        writer.write_all(msg.as_bytes()).await.unwrap();
+                    }
                 }
-
-                let msg = rx.recv().await.unwrap();  //msg is going to come back as a string
-
-                writer.write_all(msg.as_bytes()).await.unwrap();
-                line.clear();
             }  
         });    
     }     
