@@ -36,13 +36,26 @@ async fn main() {
             let mut line = String::new();
 
             loop {
-                let bytes_read = reader.read_line(&mut line).await.unwrap();
-                if bytes_read == 0 {
-                    break;
-                }
 
-                tx.send(line.clone()).unwrap();
-                // we are sending items on the channel but we are not receiving anything yet on the channel
+                // a macro that tokio has that's called select, similar to go programmming, 
+                // allows you to run multiple asynchronous things concurrently at the same time
+                // and act on the first one that comes back with a result
+
+                // the way it works is you give it an identifier, you give it a future and then you give it a block code
+                // so what is gonna do, this is going to run the future "reader.readline(&mut line)", 
+                // it gonna assign the future to the identifier that you give it "_ = ..." and it's gonna run
+                // the block of code that comes after that
+
+                tokio::select! {
+                    result = reader.read_line(&mut line) => {
+                        if result.unwrap() == 0 {
+                            break;
+                        }
+                        
+                        tx.send(line.clone()).unwrap();
+                        line.clear();
+                    }
+                }
 
                 let msg = rx.recv().await.unwrap();  //msg is going to come back as a string
 
