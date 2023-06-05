@@ -1,3 +1,4 @@
+use tokio::time::{sleep, Duration};
 use tokio::io::AsyncReadExt;
 use log::Level;
 
@@ -9,10 +10,10 @@ fn fib(n: u32) -> u32 {
     }
 }
 
-async fn sleeper() {
-    log::info!("Sleeping");
-    tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
-    log::info!("Awake!");
+async fn sleeper(name: &str) {
+    log::info!("{}: Sleeping", name);
+    sleep(Duration::from_secs(1)).await;
+    log::info!("{}: Awake!", name);
 }
 
 async fn reader() {
@@ -31,6 +32,7 @@ async fn reader() {
 }
 
 async fn run() {
+    /*
     tokio::join!{
         sleeper(),
         reader(),
@@ -44,6 +46,9 @@ async fn run() {
         reader(),
         reader(),
     };
+    */
+    sleeper("first");
+    sleeper("second").await;
 }
 
 #[tokio::main]
