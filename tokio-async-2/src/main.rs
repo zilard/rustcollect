@@ -1,6 +1,14 @@
 use tokio::io::AsyncReadExt;
 use log::Level;
 
+fn fib(n: u32) -> u32 {
+    match n {
+        0 => 0,
+        1 => 1,
+        n => fib(n - 1) + fib(n - 2),
+    }
+}
+
 async fn sleeper() {
     log::info!("Sleeping");
     tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
@@ -14,10 +22,11 @@ async fn reader() {
     f.read_to_end(&mut contents).await.unwrap();
     log::info!("Read beeg {} bytes", contents.len());
     println!("{:?}", contents);
+
+    fib(40);
 }
 
 async fn run() {
-    /*
     tokio::join!{
         sleeper(),
         reader(),
@@ -30,11 +39,7 @@ async fn run() {
         reader(),
         reader(),
         reader(),
-    };*/
-    for _ in 0..10 {
-        reader().await;
-    }
-    sleeper().await;
+    };
 }
 
 fn main() {
