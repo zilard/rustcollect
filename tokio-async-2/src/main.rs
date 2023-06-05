@@ -23,7 +23,11 @@ async fn reader() {
     log::info!("Read beeg {} bytes", contents.len());
     println!("{:?}", contents);
 
-    fib(40);
+    tokio::task::spawn_blocking(move || {
+        log::info!("Computing fib(40)");
+        fib(40);
+        log::info!("Done computing fib(40)");
+    }).await.unwrap();
 }
 
 async fn run() {
