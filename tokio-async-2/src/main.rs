@@ -20,6 +20,15 @@ async fn run() {
     tokio::join!{
         sleeper(),
         reader(),
+        reader(),
+        reader(),
+        reader(),
+        reader(),
+        reader(),
+        reader(),
+        reader(),
+        reader(),
+        reader(),
     };
 }
 
