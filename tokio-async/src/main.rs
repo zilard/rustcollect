@@ -1,10 +1,15 @@
-use tokio::time;
+use tokio::io::AsyncReadExt;
 use log::Level;
 
-async fn run() {
+async fn sleeper() {
     log::info!("Sleeping");
-    time::sleep(time::Duration::from_secs(1)).await;
+    tokio::time::sleep(tokio::time::Duration::from_secs(1)).await;
     log::info!("Awake!");
+}
+
+
+async fn reader() {
+    log::info("Reading some beeg data");
 }
 
 fn main() {
