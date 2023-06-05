@@ -17,6 +17,7 @@ async fn reader() {
 }
 
 async fn run() {
+    /*
     tokio::join!{
         sleeper(),
         reader(),
@@ -29,7 +30,11 @@ async fn run() {
         reader(),
         reader(),
         reader(),
-    };
+    };*/
+    for _ in 0..10 {
+        reader().await;
+    }
+    sleeper().await;
 }
 
 fn main() {
