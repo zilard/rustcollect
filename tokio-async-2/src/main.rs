@@ -17,8 +17,10 @@ async fn reader() {
 }
 
 async fn run() {
-    sleeper().await;
-    reader().await;
+    tokio::join!{
+        sleeper(),
+        reader(),
+    };
 }
 
 fn main() {
